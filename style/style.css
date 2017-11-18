@@ -8,6 +8,7 @@ body {
 
 .list {
     max-width: 20%;
+    min-width: 200px;
     width: auto;
     background-color: #efefef;
     margin: 10px;
