@@ -8,7 +8,7 @@ body {
 
 .list {
     max-width: 20%;
-    min-width: 200px;
+    min-width: 240px;
     width: auto;
     background-color: #efefef;
     margin: 10px;
@@ -18,10 +18,18 @@ body {
 }
 
 .card {
-    width: 80%;
+    width: 90%;
     margin: 10px auto;
     padding: 5px 2px;
     background-color: #bcbcbc;
+}
+
+.buttons {
+    margin: 10px 0;
+}
+
+.btn {
+    margin: 0 5px;
 }
 
 .navbar {
