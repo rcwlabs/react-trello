@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import List from './List';
 import Navbar from './Navbar';
+import AddForm from './AddForm';
 
 export default class Board extends Component {
     constructor(props) {
@@ -12,8 +13,20 @@ export default class Board extends Component {
                 { href: 'http://google.com', text: 'Google' },
                 { href: 'http://stackoverflow.com', text: 'Stack Overflow' },
                 { href: 'http://thinkful.com', text: 'Thinkful' }
+            ],
+            lists: [
+
             ]
         };
+    }
+
+    addList(title) {
+        this.setState({
+            lists: [
+                ...this.state.lists,
+                {title}
+            ]
+        });
     }
 
     render() {
@@ -22,12 +35,15 @@ export default class Board extends Component {
             return <li key={index}><a href={link.href} target='_blank'>{link.text}</a></li>
         });
 
+        const Lists = this.state.lists.map((list, index) => {
+            return <List key={index} {...list} />
+        });
+
         return(
             <div className='board'>
-                <Navbar links={Links}/>
-                <List title='List One' />
-                <List title='List Two' />
-                <List title='List Three' />
+                <Navbar links={Links} />
+                {Lists}
+                <AddForm type='list' onAdd={title => this.addList(title)} />
             </div>
         );
     }

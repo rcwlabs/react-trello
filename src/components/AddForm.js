@@ -6,58 +6,59 @@ export default class AddForm extends Component {
 
         this.state = {
             editing: false,
-            text: ''
+            inputValue: ''
         };
     }
 
-    handleEditState(editing) {
-        this.setState({editing});
+    handleInputChange(event) {
+        this.setState({inputValue: event.target.value});
+        console.log(this.state.inputValue);
     }
 
-    handleEditSubmit(event) {
+    handleEditToggle() {
+        this.setState({editing: !this.state.editing});
+    }
+
+    handleSubmit(event) {
         event.preventDefault();
-        const text = event.target.value;
-        this.setState({text});
-        console.log(this.state.text);
-        this.handleEditState(false);
+        this.props.onAdd(this.state.inputValue);
+        this.setState({inputValue: ''});
     }
 
     render() {
-
-        if(!this.state.editing) {
+        // Show add button if editing is false
+        if (!this.state.editing) {
             return(
-                // Create button here
-                <button 
-                    onClick={() => this.handleEditState(!this.state.editing)} 
-                    className='btn btn-large btn-primary'>
-                    Add Card
-                </button>
+                <div className='buttons'>
+                    <button 
+                        className='btn btn-large btn-primary'
+                        onClick={() => this.handleEditToggle()}>
+                        New {this.props.type}
+                    </button>
+                </div>
             );
         }
 
+        // Show add form if editing is true
         return(
-            // Create form
-            <div>
-                <form>
-                    <input type='text' 
-                        onChange={event => this.setState({text: event.target.value})} 
-                        value={this.state.text} 
-                    />
-                    <div className='buttons'>
-                        <button 
-                            type='submit' 
-                            onClick={(event) => this.handleEditSubmit(event)}
-                            className='btn btn-large btn-primary'>
-                            Submit
-                        </button>
-                        <button 
-                            onClick={() => this.handleEditState(!this.state.editing)} 
-                            className='btn btn-large btn-info'>
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>
+            <form>
+                <input 
+                    value={this.state.inputValue}
+                    onChange={event => this.handleInputChange(event)}
+                />
+                <div className='buttons'>
+                    <button 
+                        className='btn btn-large btn-info'
+                        onClick={event => this.handleSubmit(event)}>
+                        Submit
+                    </button>
+                    <button 
+                        className='btn btn-large btn-warning'
+                        onClick={() => this.handleEditToggle()}>
+                        Cancel
+                    </button>
+                </div>
+            </form>
         );
     }
 }
