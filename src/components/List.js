@@ -9,11 +9,18 @@ export default class List extends Component {
 
         this.state = {
             cards: [
-                { text: 'card one', quote: 'this is a thing!' },
-                { text: 'card two', quote: 'you are special!' },
-                { text: 'card three', quote: 'hang in there baby!' }
+                
             ]
         };
+    }
+
+    addCard(text) {
+        this.setState({
+            cards: [
+                ...this.state.cards,
+                {text}
+            ]
+        });
     }
 
     render() {
@@ -26,7 +33,7 @@ export default class List extends Component {
             <div className='list'>
                 <h2>{this.props.title}</h2>
                 {CardList}
-                <AddForm />
+                <AddForm type='card' onAdd={text => this.addCard(text)} />
             </div>
         );
     }
